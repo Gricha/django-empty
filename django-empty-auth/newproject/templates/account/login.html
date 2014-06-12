@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form action="" method="post">
+    <div class="row">
+      <div class="col-md-12">
+        {% if form.errors %}
+          <div class="alert alert-warning">
+            Invalid email/password.
+          </div>
+        {% endif %}
+
+        <h1>QueueMovie login</h1>
+        <div class="with-bottom-padding">
+          {% csrf_token %}
+          {% include "field.html" with field=form.username %}
+          {% include "field.html" with field=form.password %}
+        </div>
+      </div>
+    </div>
+    <div class="row with-bottom-padding">
+      <div class="col-xs-5">
+         <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Log in" />
+      </div>
+      <div class="col-xs-7 right">
+        <a class="italic right" href="{% url 'register' %}{% if next %}?next={{ next }}{% endif %}" id="new">
+          register
+        </a>
+      </div>
+    </div>
+  </form>
+  <script type="text/javascript">
+  $('#id_username').focus();
+  </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>QueueMovie registration</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {% include "field.html" with field=form.email %}
+    {% include "field.html" with field=form.password1 %}
+    {% include "field.html" with field=form.password2 %}
+
+    <p class="small italic">Please choose your password wisely. We're in beta and we don't have password reminders</p>
+    <div class="row with-bottom-padding">
+      <div class="col-xs-7">
+         <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Sign Up" />
+      </div>
+      <div class="col-xs-5 right">
+        <a href="{% url 'account:login' %}{% if next %}?next={{ next }}{% endif %}" id="new">
+          already have an account
+        </a>
+      </div>
+    </div>
+  </form>
+  <script type="text/javascript">
+    $('#id_email').focus();
+  </script>
+{% endblock %}

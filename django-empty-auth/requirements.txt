@@ -1,0 +1,6 @@
+Django==1.6.5
+django_compressor
+uwsgi
+south
+django-registration
+django-widget-tweaks

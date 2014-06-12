@@ -1,0 +1,5 @@
+*.pyc
+newproject/static/CACHE
+settings_local.py
+db.sqlite3
+

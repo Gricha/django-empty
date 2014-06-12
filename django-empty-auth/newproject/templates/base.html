@@ -1,0 +1,86 @@
+{% load compress %}
+{% load cache %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="og:image" content="/static/img/logo.png" />
+    <meta name="description" content="project-description" />
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <title>NewProject</title>
+    {% compress css %}
+      <link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" />
+
+      <link type="text/less" href="/static/less/main.less" rel="stylesheet" />
+    {% endcompress %}
+  </head>
+  <body>
+    {% block body %}
+      <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand">NewProject</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="{% url 'homepage' %}">Home</a>
+              </li>
+              {% if request.user.is_authenticated %}
+                <li class="dropdown">
+                  <a href="#" class"dropdown-toggle" data-toggle="dropdown">{{ request.user.username }}</a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="{% url 'account:logout' %}">Logout</a>
+                    </li>
+                  </ul>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{% url 'account:login' %}">Log In</a>
+                </li>
+                <li>
+                  <a href="{% url 'register' %}">Sign Up</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+
+        <div class="footer with-top-margin">
+          <div class="row">
+            <div class="col-xs-12">
+              &copy; NewProject 2014
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      {% compress js %}
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('li.dropdown').bind('click', function() {
+              $('#navbar-main').css('height', 'auto');
+            });
+          });
+        </script>
+      {% endcompress %}
+    {% endblock %}
+  </body>
+</html>
+
